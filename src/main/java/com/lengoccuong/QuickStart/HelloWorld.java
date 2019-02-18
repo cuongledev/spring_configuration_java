@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,5 +36,14 @@ public class HelloWorld {
 		
 		return new ModelAndView("say-hello");
 	}
+	
+	 @RequestMapping("/hello/{name}")
+     public String welcomeName(HttpServletRequest request,
+    		 @PathVariable(name="name") String name ) {
+
+		 request.setAttribute("msg", "Maven Web Project + Spring 3 MVC - " + name);
+             return "comtom";
+
+     }
 
 }
