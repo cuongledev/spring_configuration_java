@@ -6,12 +6,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.lengoccuong.model.User;
 
 @Controller
 public class HelloWorld {
@@ -37,12 +40,30 @@ public class HelloWorld {
 		return new ModelAndView("say-hello");
 	}
 	
-	 @RequestMapping("/hello/{name}")
-     public String welcomeName(HttpServletRequest request,
-    		 @PathVariable(name="name") String name ) {
+	 @RequestMapping(value="/hello", method=RequestMethod.GET)
+     public String welcomeName(HttpServletRequest request) {
+		 User user = new User();
+		 user.setName("Spring hahaha");
+		 
 
-		 request.setAttribute("msg", "Maven Web Project + Spring 3 MVC - " + name);
-             return "comtom";
+		request.setAttribute("msg", user.getName());
+        return "comtom";
+
+     }
+	 @RequestMapping(value="/add-user", method=RequestMethod.GET)
+     public String addUser(HttpServletRequest request) {
+		 User user = new User();
+		 user.setName("String MVC");
+		 request.setAttribute("user", user);
+        return "add_user";
+
+     }
+	 @RequestMapping(value="/them-user", method=RequestMethod.POST)
+     public String addUser(HttpServletRequest request,
+    		 @ModelAttribute("user") User user
+    		 ) {
+		 request.setAttribute("user", user);
+        return "done_user";
 
      }
 

@@ -35,4 +35,5 @@ public class QuickStartInitializer extends AbstractAnnotationConfigDispatcherSer
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/");
     }
+	
 }
